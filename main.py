@@ -23,8 +23,8 @@ class Bomberman:
 		self.l = self.reseau.getInt()
 		self.c = self.reseau.getInt()
 
-		for i in range(self.l):
-			self.mapp.append(['0']*self.c)
+		for i in range(self.c):
+			self.mapp.append(['0']*self.l)
 
 	def getMap(self):
 		res = self.reseau.getString()
@@ -34,7 +34,7 @@ class Bomberman:
 			print("GET MAP")
 			for i in range(self.l):
 				for j in range(self.c):
-					self.mapp[i][j] = self.reseau.getChar()
+					self.mapp[j][i] = self.reseau.getChar()
 
 			nb_bombes = self.reseau.getInt()
 			self.bombes = []
@@ -48,9 +48,9 @@ class Bomberman:
 		for i in range(self.c):
 			s += '-'
 		s += '\n'
-		for i in range(self.l):
+		for i in range(self.c):
 			s += '|'
-			for j in range(self.c):
+			for j in range(self.l):
 				s += self.mapp[i][j]
 			s += '|\n'
 		s += '+'
