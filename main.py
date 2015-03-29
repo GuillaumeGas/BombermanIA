@@ -16,6 +16,7 @@ class Bomberman:
 		self.reseau.sendString("LOGIN " + pseudo + "\0")
 
 	def getSpec(self):
+		self.reseau.getString()
 		self.ID = self.reseau.getChar()
 		self.l = self.reseau.getInt()
 		self.c = self.reseau.getInt()
