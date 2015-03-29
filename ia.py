@@ -1,4 +1,4 @@
-from random import Random
+from random import randint
 
 class Ia:
 
@@ -12,5 +12,16 @@ class Ia:
 			return 'N' #tmp...
 
 	def jouerCoupAlea(self, l, c, mapp, bombes, ID):
-		return 'N'
+		action = randint(0, 4)
+		if action == 0:
+			return 'N'
+		if action == 1:
+			return 'S'
+		if action == 2:
+			return 'E'
+		if action == 3:
+			return 'W'
+		if action == 4:
+			return 'B'
+
 

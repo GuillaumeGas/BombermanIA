@@ -27,7 +27,6 @@ class Reseaux:
 		c   = ''
 		while(c != '\0'):
 			c = self.sock.recv(1)
-			print c
 			if(c != '\0'):
 				res += c
 		return res
@@ -36,4 +35,4 @@ class Reseaux:
 		return ord(self.sock.recv(1))
 
 	def getChar(self):
-		return chr(ord(self.sock.recv(1)))
+		return self.sock.recv(1)
