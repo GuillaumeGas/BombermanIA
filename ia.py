@@ -90,4 +90,20 @@ class Ia:
 				return True
 		return False
 
+	#cherche si le joueur en posx, posy est dans le rayon d'action d'une bombe. Si oui, renvoie la pos de cette bombe
+	#Return : (x, y)
+	def dansRayonActionBombe(self, l, c, mapp, bombes, posx, posy):
+
+		#return une paire
+
+	#determine ou aller en fonction de la bombe en x, y, et du joueur en posx, posy, 
+	#ainsi que le nombre de deplacement a effectuer (ligne droite)
+	#Return : (action, nombre)
+	def determinerDirectionFuite(self, l, c, mapp, x, y, posx, posy):
+
+		#return paire
+
+	#determine si un enemy est proche (dans le rayon d action de notre bombe si on la pose)
+	#Return : True si oui sinon False
+	def enemyProche(self, l, c, mapp, posx, posy):
 
