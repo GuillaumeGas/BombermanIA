@@ -4,7 +4,7 @@ from ia import *
 
 class Bomberman:
 	reseau = Reseaux()
-	ia = Ia(1) #1 ou alea, 2 pour evoluee (soon...)
+	ia = Ia(2) #1 ou alea, 2 pour evoluee (soon...)
 	ID = 0
 	l = 0
 	c = 0
@@ -23,8 +23,8 @@ class Bomberman:
 		self.l = self.reseau.getInt()
 		self.c = self.reseau.getInt()
 
-		for i in range(self.c):
-			self.mapp.append(['0']*self.l)
+		for i in range(self.l):
+			self.mapp.append(['0']*self.c)
 
 	def getMap(self):
 		res = self.reseau.getString()
@@ -34,13 +34,13 @@ class Bomberman:
 			print("GET MAP")
 			for i in range(self.l):
 				for j in range(self.c):
-					self.mapp[j][i] = self.reseau.getChar()
+					self.mapp[i][j] = self.reseau.getChar()
 
 			nb_bombes = self.reseau.getInt()
 			self.bombes = []
 			for i in range(nb_bombes):
-				bx = self.reseau.getInt()
 				by = self.reseau.getInt()
+				bx = self.reseau.getInt()
 				self.bombes.append((bx,by))
 
 	def afficherMap(self):
@@ -48,9 +48,9 @@ class Bomberman:
 		for i in range(self.c):
 			s += '-'
 		s += '\n'
-		for i in range(self.c):
+		for i in range(self.l):
 			s += '|'
-			for j in range(self.l):
+			for j in range(self.c):
 				s += self.mapp[i][j]
 			s += '|\n'
 		s += '+'
