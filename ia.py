@@ -70,7 +70,7 @@ class Ia:
 					self.liste_actions.append(action)
 				if nb > 1:
 					self.etat = Etat.FUITE	
-			else if self.enemyProche(l, c, mapp, posx, posy):
+			else if self.enemyProche(l, c, mapp, posx, posy, ID):
 				self.liste_actions.append('B')
 			else:
 				self.liste_actions.append(self.mouvementAleatoire(l, c, mapp, posx, posy))
@@ -91,19 +91,70 @@ class Ia:
 		return False
 
 	#cherche si le joueur en posx, posy est dans le rayon d'action d'une bombe. Si oui, renvoie la pos de cette bombe
-	#Return : (x, y)
+	#Return : (x, y) ou (-1, -1) si pas de bombes
 	def dansRayonActionBombe(self, l, c, mapp, bombes, posx, posy):
-
-		#return une paire
+		for i in range(len(bombes)):
+			(bx, by) = bombes[i]
+			if (posx >= ((bx-3)%c) and posx <= ((bx+3)%c)) or (posy >= ((by-3)%l) and posy <= ((by+3)%l)):
+				return (bx, by)
+		return (-1, -1)
 
 	#determine ou aller en fonction de la bombe en x, y, et du joueur en posx, posy, 
 	#ainsi que le nombre de deplacement a effectuer (ligne droite)
 	#Return : (action, nombre)
 	def determinerDirectionFuite(self, l, c, mapp, x, y, posx, posy):
-
-		#return paire
+		if x == posx and y == posy:
+			return ('N', 1) #TMPP
+		else:
+			if x < posx or x > posx:
+				if self.caseAccessible(l, c, mapp, posx, posy+1):
+					return ('S', 1)
+				else if self.caseAccessible(l, c, mapp, posx, posy-1):
+					return ('N', 1)
+				else:
+					if x < posx:
+						nb = (((x-4)%c)-posx)%c
+						return ('W', nb)
+					if x > posx:
+						nb = (((x-4)%c)-posx)%c
+						return ('E', nb)
+			else y < posy or y > posy:
+				if self.caseAccessible(l, c, mapp, posx+1, posy):
+					return ('E', 1)
+				else if self.caseAccessible(l, c, mapp, posx-1, posy):
+					return ('W', 1)
+				else:
+					if y < posy:
+						nb = (((y-4)%l)-posy)%l
+						return ('N', nb)
+					if y > posy:
+						nb = (((y-4)%l)-posy)%l
+						return ('S', nb)
 
 	#determine si un enemy est proche (dans le rayon d action de notre bombe si on la pose)
 	#Return : True si oui sinon False
-	def enemyProche(self, l, c, mapp, posx, posy):
+	def enemyProche(self, l, c, mapp, posx, posy, ID):
+		pos = posx
+		while pos >= (posx-3):
+			if ord(mapp[pos][posy]) != ID and ord(mapp[pos][posy]) > 0 and ord(mapp[pos][posy]) < 9:
+				return True
+			pos = (pos-1)%c
+		pos = posx
+		while pos <= (posx+3):
+			if ord(mapp[pos][posy]) != ID and ord(mapp[pos][posy]) > 0 and ord(mapp[pos][posy]) < 9:
+				return True
+			pos = (pos+1)%c
+		pos = posy
+		while pos >= (posy-3):
+			if ord(mapp[posx][pos]) != ID and ord(mapp[posx][pos]) > 0 and ord(mapp[posx][pos]) < 9:
+				return True
+			pos = (pos-1)%l
+		pos = posy
+		while pos <= (posy+3):
+			if ord(mapp[posx][pos]) != ID and ord(mapp[posx][pos]) > 0 and ord(mapp[posx][pos]) < 9:
+				return True
+			pos = (pos+1)%l
+		return False
+
+
 
