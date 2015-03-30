@@ -49,23 +49,3 @@ return liste_action[len(liste_action)-1]
 
 
 
-pos = posx
-		while pos >= posx-3 and pos >= 0:
-			if ord(mapp[pos][posy]) != ID and ord(mapp[pos][posy]) > 0 and ord(mapp[pos][posy]) < 9:
-				return True
-			pos = (pos-1)%c
-		pos = posx
-		while pos <= posx+3 and pos < c:
-			if ord(mapp[pos][posy]) != ID and ord(mapp[pos][posy]) > 0 and ord(mapp[pos][posy]) < 9:
-				return True
-			pos = (pos+1)%c
-		pos = posy
-		while pos >= posy-3 and pos >= 0:
-			if ord(mapp[posx][pos]) != ID and ord(mapp[posx][pos]) > 0 and ord(mapp[posx][pos]) < 9:
-				return True
-			pos = (pos-1)%l
-		pos = posy
-		while pos <= posy+3 and pos < l:
-			if ord(mapp[posx][pos]) != ID and ord(mapp[posx][pos]) > 0 and ord(mapp[posx][pos]) < 9:
-				return True
-			pos = (pos+1)%l

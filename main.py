@@ -65,7 +65,7 @@ class Bomberman:
 
 	def jouerCoup(self):
 		action = self.ia.jouerCoup(self.l, self.c, self.mapp, self.bombes, self.ID)
-		print("Action : " + action)
+		print("Action : " + action+";")
 		self.reseau.sendChar(action)
 
 	def gameOver(self):

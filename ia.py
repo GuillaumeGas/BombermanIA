@@ -60,6 +60,8 @@ class Ia:
 					self.liste_actions.append('N')
 					self.etat = Etat.NORMAL
 
+			print "Case SUD ("+str(posx%c)+","+str((posy+1)%l)+") = "+mapp[(posy+1)%l][posx%c]+";"
+
 			if len(self.liste_actions) == 1:
 				self.etat = Etat.NORMAL
 
@@ -90,10 +92,11 @@ class Ia:
 					return (i, j)
 
 	def caseAccessible(self, l, c, mapp, x, y):
-		if(x >= 0 and x < c and y >= 0 and y < l):
-			if(mapp[y][x] != 'X'):
-				print "Case ("+str(x)+","+str(y)+") : "+mapp[y][x]+";"
-				return True
+		x %= c
+		y %= l
+		if(mapp[y][x] != 'X'):
+			print "Case ("+str(x)+","+str(y)+") : "+mapp[y][x]+";"
+			return True
 		return False
 
 	#cherche si le joueur en posx, posy est dans le rayon d'action d'une bombe. Si oui, renvoie la pos de cette bombe
@@ -111,7 +114,7 @@ class Ia:
 	#ainsi que le nombre de deplacement a effectuer (ligne droite)
 	#Return : (action, nombre)
 	def determinerDirectionFuite(self, l, c, mapp, x, y, posx, posy):
-		print "Determination direction fuite..."
+		print "Determination direction fuite... bombe("+str(x)+","+str(y)+") J("+str(posx)+","+str(posy)+")"
 
 		if x == posx and y == posy:
 			if self.caseAccessible(l, c, mapp, posx, posy-1):
@@ -123,7 +126,7 @@ class Ia:
 			if self.caseAccessible(l, c, mapp, posx-1, posy):
 				return ('W', 1)
 		else:
-			if x < posx or x > posx:
+			if x != posx:
 				if self.caseAccessible(l, c, mapp, posx, posy+1):
 					return ('S', 1)
 				elif self.caseAccessible(l, c, mapp, posx, posy-1):
@@ -153,6 +156,26 @@ class Ia:
 	def ennemyProche(self, l, c, mapp, posx, posy, ID):
 		print "Determination ennemy proche..."
 
+		pos = posx
+		while pos >= posx-3 and pos >= 0:
+			if ord(mapp[posy][pos]) != ID and ord(mapp[posy][pos]) > 0 and ord(mapp[posy][pos]) < 9:
+				return True
+			pos = (pos-1)%c
+		pos = posx
+		while pos <= posx+3 and pos < c:
+			if ord(mapp[posy][pos]) != ID and ord(mapp[posy][pos]) > 0 and ord(mapp[posy][pos]) < 9:
+				return True
+			pos = (pos+1)%c
+		pos = posy
+		while pos >= posy-3 and pos >= 0:
+			if ord(mapp[pos][posx]) != ID and ord(mapp[pos][posx]) > 0 and ord(mapp[pos][posx]) < 9:
+				return True
+			pos = (pos-1)%l
+		pos = posy
+		while pos <= posy+3 and pos < l:
+			if ord(mapp[pos][posx]) != ID and ord(mapp[pos][posx]) > 0 and ord(mapp[pos][posx]) < 9:
+				return True
+			pos = (pos+1)%l
 		
 		return False
 
