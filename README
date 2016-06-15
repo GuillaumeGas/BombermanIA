@@ -1,47 +1,6 @@
-Algo ia :
+CONCOURS DE PROGRAMMATION - IUT ORLEANS
 
-Si etat == FUITE
-	action_prevue = liste_action[len(liste_action)-1]
-
-	# si l'action prévue est d'aller au nord ou sud pour fuire une bombe, on voit si on peut pas faire un pas de coté pour éviter son rayon d'action
-	Si action_prevue == 'N' or action_prevue == 'S':
-		Si self.caseAccessible(l, c, mapp, posx+1, posy):
-			liste_action = []
-			liste_action.append('E')
-			etat = NORMAL
-		Sinon Si self.caseAccessible(l, c, mapp, posx-1, posy):
-			liste_action = []
-			liste_action.append('W')
-			etat = NORMAL
-	Sinon Si action_prevue == 'E' or action_prevue == 'W':
-		Si self.caseAccessible(l, c, mapp, posx, posy+1):
-			liste_action = []
-			liste_action.append('S')
-			etat = NORMAL
-		Sinon Si self.caseAccessible(l, c, mapp, posx, posy-1):
-			liste_action = []
-			liste_action.append('N')
-			etat = NORMAL
-
-
-Sinon Si (x, y) = dansRayonActionBombe()
-	# action, et le nombre de fois à la reproduire en fonction de la position de la bombe
-	(action, nb) = determiner_direction_fuite(x, y)
-	for(i = 0; i < nb_cases_a_eviter; i++)
-		liste_action.append(action)
-	Si nb > 1
-		etat = FUITE
-
-Sinon Si enemyAProximite()
-	liste_action.append('B')
-
-Sinon 
-	liste_action.append(mouvementAleatoire())
-	#liste_action.append(mouvementVersBonus())
-
-return liste_action[len(liste_action)-1]
-
-
+IA simple de bomberman
 
 
 
